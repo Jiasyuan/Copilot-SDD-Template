@@ -1,4 +1,4 @@
-
+```powershell
 param (
     [Parameter(Mandatory = $true)]
     [string]$TargetPath,
@@ -174,27 +174,18 @@ else {
 # Configure Project References
 # =====================================
 
-# -------------------------------------
 # Application -> Domain
-# -------------------------------------
-
 dotnet add ".\src\$applicationProject\$applicationProject.csproj" reference `
     ".\src\$domainProject\$domainProject.csproj"
 
-# -------------------------------------
 # Infrastructure -> Application + Domain
-# -------------------------------------
-
 dotnet add ".\src\$infrastructureProject\$infrastructureProject.csproj" reference `
     ".\src\$applicationProject\$applicationProject.csproj"
 
 dotnet add ".\src\$infrastructureProject\$infrastructureProject.csproj" reference `
     ".\src\$domainProject\$domainProject.csproj"
 
-# -------------------------------------
 # WebApi -> Application + Infrastructure
-# -------------------------------------
-
 dotnet add ".\src\$webApiProject\$webApiProject.csproj" reference `
     ".\src\$applicationProject\$applicationProject.csproj"
 
@@ -243,13 +234,101 @@ Write-Host ""
 Write-Host "Test project references configured!" -ForegroundColor Cyan
 
 # =====================================
-# Restore Packages
+# Restore Backend Packages
 # =====================================
 
 dotnet restore
 
 Write-Host ""
 Write-Host "NuGet packages restored!" -ForegroundColor Cyan
+
+# =====================================
+# Frontend Setup
+# =====================================
+
+$frontendPath = Join-Path $TargetPath "Frontend"
+
+# =====================================
+# Create Frontend Folders
+# =====================================
+
+New-Item -ItemType Directory -Path $frontendPath -Force | Out-Null
+
+Write-Host ""
+Write-Host "Frontend folder created!" -ForegroundColor Green
+
+
+Set-Location $frontendPath
+
+Write-Host "Current location: $(Get-Location)" -ForegroundColor Yellow
+
+# =====================================
+# Create Vue Project
+# =====================================
+
+Write-Host ""
+Write-Host "Creating Vue 3 + Vite + TypeScript project..." -ForegroundColor Cyan
+
+npm create vite@latest . -- --template vue-ts
+
+# =====================================
+# Install Frontend Packages
+# =====================================
+
+Write-Host ""
+Write-Host "Installing npm packages..." -ForegroundColor Cyan
+
+npm install
+
+# Vue Router
+npm install vue-router
+
+# Pinia
+npm install pinia
+
+# Axios
+npm install axios
+
+# Tailwind CSS
+npm install -D tailwindcss @tailwindcss/vite
+
+# =====================================
+# Configure Tailwind CSS
+# =====================================
+
+Write-Host ""
+Write-Host "Configuring Tailwind CSS..." -ForegroundColor Cyan
+
+# 更新 vite.config.ts
+$viteConfigPath = Join-Path $frontendPath "vite.config.ts"
+
+$viteConfigContent = @"
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    tailwindcss(),
+  ],
+})
+"@
+
+Set-Content -Path $viteConfigPath -Value $viteConfigContent
+
+# 建立 src/assets/main.css
+$mainCssPath = Join-Path $frontendPath "src\assets\main.css"
+
+$mainCssContent = @"
+@import "tailwindcss";
+"@
+
+Set-Content -Path $mainCssPath -Value $mainCssContent
+
+Write-Host ""
+Write-Host "Tailwind CSS configured!" -ForegroundColor Green
 
 # =====================================
 # Completed
@@ -260,4 +339,9 @@ Write-Host "=====================================" -ForegroundColor Green
 Write-Host "Copilot SDD Template Initialized!" -ForegroundColor Green
 Write-Host "Solution : $SolutionName" -ForegroundColor Green
 Write-Host "Location : $TargetPath" -ForegroundColor Green
+Write-Host "Backend : Clean Architecture + xUnit" -ForegroundColor Green
+Write-Host "Frontend: Vue 3 + Vite + TypeScript" -ForegroundColor Green
+Write-Host "Frontend: Pinia + Vue Router + Axios" -ForegroundColor Green
+Write-Host "Frontend: Tailwind CSS" -ForegroundColor Green
 Write-Host "=====================================" -ForegroundColor Green
+```
