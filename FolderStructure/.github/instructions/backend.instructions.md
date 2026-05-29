@@ -1,6 +1,5 @@
 ---
-applyTo:
-  - 'BackEnd/**'
+applyTo: 'BackEnd/**'
 ---
 
 # Backend Path-Specific Instructions

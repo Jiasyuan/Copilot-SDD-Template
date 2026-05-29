@@ -1,6 +1,5 @@
 ---
-applyTo:
-  - 'FrontEnd/**'
+applyTo: 'FrontEnd/**'
 ---
 
 # Frontend Path-Specific Instructions
