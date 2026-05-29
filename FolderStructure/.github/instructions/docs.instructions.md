@@ -1,6 +1,5 @@
 ---
-applyTo:
-  - 'Docs/**'
+applyTo: 'Docs/**'
 ---
 
 # Docs Path-Specific Instructions
@@ -17,6 +16,7 @@ applyTo:
 
 ## 撰寫原則
 - 使用繁體中文與台灣習慣用語。
+- 若是專有名詞可以適度加入英文補充。
 - 內容應具體、可執行、可驗證，避免空泛口號。
 - 若引用 API、欄位、路徑、類別、元件、資料表或檔案名稱，應使用正確名稱。
 - 使用條列、表格、標題階層清楚呈現，便於後續追蹤與延伸。
@@ -41,3 +41,14 @@ applyTo:
 - Security Review 應明確區分 Blocker、High、Medium、Low、Info。
 - 若存在不可接受風險，需明確標示不可上線或需先修正。
 - 套件與授權審查應清楚列出觀察結果、風險原因與替代建議。
+
+## 檔案命名與位置規則
+- PRD 檔名：`需求名稱-PRD.md`，使用英文命名。
+- Spec 檔名：`需求名稱-Spec.md`，使用英文命名。
+- Task 檔名：`需求名稱-Task.md`，使用英文命名。
+- Security Review 檔名：`需求名稱-Security-Review.md`，使用英文命名。
+- 所有文件應放在對應目錄下：
+  - `Docs/PRD/`
+  - `Docs/Spec/`
+  - `Docs/Task/`
+  - `Docs/Security/`
