@@ -1,0 +1,35 @@
+# =============== 專案根目錄 .gitignore ===============
+
+# 1. 開發環境變數檔 (嚴防金鑰、API網址外洩)
+.env*.local
+.env.development
+.env.production
+appsettings.Development.json
+
+# 2. 前端 Vue / Node 相關打包與暫存
+node_modules/
+dist/
+.eslintcache
+*.local
+
+# 3. 後端 .NET 相關編譯暫存
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# 4. 作業系統髒檔案
+.DS_Store
+Thumbs.db
+
+# 確保徹底封鎖任何層級的 .vs 快取與索引檔
+.vs/
+**/.vs/
+**/*.vsidx
+[Bb]in/
+**/[Bb]in/
+[Oo]bj/
+**/[Oo]bj/
